@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "Creating SSL Certificate Configs"
 pushd ansible
-/usr/bin/ansible-playbook ~/scripts/ansible/ca-certs.yaml
+/usr/bin/ansible-playbook ca-certs.yaml
 popd
 
 echo Creating CA Private Key
