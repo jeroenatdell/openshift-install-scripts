@@ -71,11 +71,11 @@ do
 	chmod +x /usr/bin/local/oc-mirror
 
 echo "Preparing storage location"
-pushd ~/scripts/ansible
+pushd /ansible
 /usr/bin/ansible-playbook create-quay-storage.yaml
 sudo mkdir -p ${QUAY_ROOT}
 sudo mkdir -p ${QUAY_STORAGE}
 sudo mkdir -p ${QUAY_PG_STORAGE}
 sudo mkdir -p ${REMOVABLE_MEDIA_PATH}
-
+popd
 
