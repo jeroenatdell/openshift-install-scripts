@@ -1,7 +1,7 @@
 #!/bin/bash
 source vars/environment.ini
 echo "Installing Quay Registry...."
-pushd /home/admin/mirror-registry
+pushd ~/mirror-registry
 /usr/bin/sudo /home/admin/mirror-registry/mirror-registry install \
 --quayHostname ${QUAY_HOSTNAME} --quayRoot ${QUAY_ROOT} \
 --pgStorage ${QUAY_PG_STORAGE} --quayStorage ${QUAY_STORAGE} \
