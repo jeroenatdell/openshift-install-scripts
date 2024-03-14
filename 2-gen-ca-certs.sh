@@ -1,4 +1,9 @@
 #!/bin/bash
+echo "Creating SSL Certificate Configs"
+pushd ansible
+/usr/bin/ansible-playbook ~/scripts/ansible/ca-certs.yaml
+popd
+
 echo Creating CA Private Key
 openssl genrsa -out ~/ca/keys/utility.ocp.lab.key.pem
 echo Creating self-signed CA Cert
@@ -9,11 +14,6 @@ openssl	req -new -x509 -nodes -sha256 -days 3650 \
 echo Adding cert to CA Trust Store
 /usr/bin/sudo cp ~/ca/certs/utility.ocp.lab.cert.pem /usr/share/pki/ca-trust-source/anchors
 /usr/bin/sudo /usr/bin/update-ca-trust
-
-echo "Creating SSL Certificate Configs"
-CWD=${PWD}
-cd ~/scripts/ansible
-/usr/bin/ansible-playbook ~/scripts/ansible/ca-certs.yaml
 
 for server in "registry" "api"
 do
