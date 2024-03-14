@@ -1,7 +1,6 @@
 #!/bin/bash
 source vars/environment.ini
 echo "Creating SSH Key"
-ssh-keygen -t ed25519 -N '' -f ~/.ssh/ed25519
 echo "Installing required packages..."
 sudo dnf -y install container-tools nmstate openssl ansible-core ansible-collection-redhat-rhel_mgmt 
 echo "Install yq..."
