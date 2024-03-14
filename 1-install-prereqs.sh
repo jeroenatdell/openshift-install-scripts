@@ -42,7 +42,7 @@ echo Downloading remaining files...
 for TAR_FILE in "${OCP_FILES[@]}"
 do
 	FILE_DOWNLOAD="${DOWNLOAD_MIRROR}/ocp/${OCP_RELEASE}/${TAR_FILE}.tar.gz"
-	DOWNLOADED_FILE="${DOWNLOAD_LOCATION}/${TAR_FILE}"
+	DOWNLOADED_FILE="${DOWNLOAD_LOCATION}/${TAR_FILE}.tar.gz"
 	EXPECTED_SHA=$(curl -s ${DOWNLOAD_MIRROR}/ocp/${OCP_RELEASE}/sha256sum.txt | grep ${TAR_FILE}-${OCP_RELEASE}.tar.gz | awk '{print $1}')
 
 	echo -n -e "\rDownloading	${TAR_FILE}			[	In Progress	]"
