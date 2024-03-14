@@ -44,7 +44,8 @@ do
 	FILE_DOWNLOAD="${DOWNLOAD_MIRROR}/ocp/${OCP_RELEASE}/${TAR_FILE}.tar.gz"
 	DOWNLOADED_FILE="${DOWNLOAD_LOCATION}/${TAR_FILE}.tar.gz"
 	EXPECTED_SHA=$(curl -s ${DOWNLOAD_MIRROR}/ocp/${OCP_RELEASE}/sha256sum.txt | grep ${TAR_FILE}-${OCP_RELEASE}.tar.gz | awk '{print $1}')
-
+	echo ${DOWNLOAD_FILE}
+ 	echo ${EXPECTED_SHA}
 	echo -n -e "\rDownloading	${TAR_FILE}			[	In Progress	]"
 	if [ ! -f  ${DOWNLOADED_FILE} ]; then
 		wget -q ${FILE_DOWNLOAD} -P ${DOWNLOAD_LOCATION}
@@ -54,6 +55,7 @@ do
 	echo ""
 	echo -n -e "\rVerifying	${TAR_FILE}			[	Verifying	]"
 	DOWNLOAD_SHA=$(sha256sum ${DOWNLOADED_FILE} | awk '{print $1}')
+ 	echo ${DOWNLOAD_SHA}
 	if [ "${DOWNLOAD_SHA}" = "${EXPECTED_SHA}" ]; then
 		echo -n -e "\rVerifying	${TAR_FILE}			[	${GREEN}Verified OK${DEFAULT}	]"
 	else	
