@@ -1,6 +1,5 @@
 #!/bin/bash
 source vars/environment.ini
-echo "Creating SSH Key"
 echo "Installing required packages..."
 sudo dnf -y install container-tools nmstate openssl ansible-core ansible-collection-redhat-rhel_mgmt 
 echo "Install yq..."
