@@ -33,10 +33,10 @@ fi
 echo ""
 
 echo -n -e "\rInstalling	${MIRROR_REGISTRY}			[	In Progress	]"
-if [ ! -d /home/admin/mirror-registry ]; then
-	mkdir /home/admin/mirror-registry
+if [ ! -d ~/mirror-registry ]; then
+	mkdir ~/mirror-registry
 fi
-tar -xf ${DOWNLOADED_FILE} --exclude=README.md -C /home/admin/mirror-registry
+tar -xf ${DOWNLOADED_FILE} --exclude=README.md -C ~/mirror-registry
 echo -n -e "\rInstalling	${MIRROR_REGISTRY}			[	${GREEN}Completed..${DEFAULT}	]"
 echo ""
 echo Downloading remaining files...
