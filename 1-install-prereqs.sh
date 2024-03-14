@@ -3,10 +3,8 @@ source vars/environment.ini
 echo "Installing required packages..."
 sudo dnf -y install container-tools nmstate openssl ansible-core ansible-collection-redhat-rhel_mgmt 
 echo "Install yq..."
-VERSION="4.42.1"
-BINARY="yq_linux_amd64"
-sudo wget https://github.com/mikefarah/yq/releases/download/${VERSION}/${BINARY} -O /usr/bin/yq
-sudo chmod +x /usr/bin/yq
+wget https://github.com/mikefarah/yq/releases/download/v4.42.1/yq_linux_amd64 -O /usr/bin/yq
+chmod +x /usr/bin/yq
 echo "Installing additional Ansible Galaxy Collections..."
 /usr/bin/ansible-galaxy collection install ansible.posix 
 /usr/bin/ansible-galaxy collection install community.general
