@@ -1,0 +1,66 @@
+---
+# tasks file for install-configure-dns
+- name: Install dns and firewalld package
+  ansible.builtin.yum:
+    name:
+    - bind
+    - firewalld
+    state: present
+
+- name: Ensure dns is allowed on the firewall
+  ansible.posix.firewalld:
+    service: dns
+    permanent: yes
+    state: enabled
+    immediate: yes
+
+- name: configure named.conf
+  template:
+    src: named.conf.j2
+    dest: /etc/named.conf
+    owner: root
+    group: named
+    mode: 0640
+  notify: Restart named
+
+- name: Install forward lookup zone file
+  template: 
+    src: template.zone.j2
+    dest: "/var/named/{{ domain_name }}.zone"
+    owner: root
+    group: named
+    mode: 0640
+  notify: Restart named
+
+- name: Install reverse lookup zone file
+  template: 
+    src: template.rzone.j2
+    dest: "/var/named/{{ domain_name }}.rzone"
+    owner: root
+    group: named
+    mode: 0640
+  notify: Restart named
+
+- name: Configure forward lookup db
+  template:
+    src: db.template.zone.j2
+    dest: "/var/named/db.{{ domain_name }}.zone"
+    owner: root
+    group: named
+    mode: 0640
+  notify: Restart named
+
+- name: Configure reverse lookup db
+  template:
+    src: db.template.rzone.j2
+    dest: "/var/named/db.{{ domain_name }}.rzone"
+    owner: root
+    group: named
+    mode: 0640
+  notify: Restart named
+
+- name: Ensure named is started and enabled
+  service:
+    name: named
+    state: started
+    enabled: true

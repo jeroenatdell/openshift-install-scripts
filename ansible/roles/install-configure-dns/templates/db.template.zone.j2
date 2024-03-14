@@ -1,0 +1,20 @@
+$ORIGIN {{ domain_name }}.
+$TTL 1D
+@	IN SOA	{{ domain_name }}. root (
+					0	; serial
+					1D	; refresh
+					1H	; retry
+					1W	; expire
+					3H )	; minimum
+		IN NS {{ ansible_hostname }}
+
+{{ ansible_hostname }}			IN A 	{{ ansible_default_ipv4.address }}
+{% for records in infrastructure_addresses %}
+{{ records.name }}			IN A	{{ records.ip }}
+{% endfor %}
+{% for nodes in openshift_nodes %}
+{{ nodes.name }}			IN A	{{ nodes.ip }}
+{% endfor %}
+{% for wildcard in wildcard_domain %}
+{{ wildcard.name }}                        IN A    {{ wildcard.ip }}
+{% endfor %}

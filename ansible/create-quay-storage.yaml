@@ -1,0 +1,43 @@
+---
+- name: Create LVM partition for Quay storage
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Ensure required packages are installed
+      dnf:
+        name:
+          - parted
+          - lvm2
+        state: latest
+
+    - name: Create LVM partition
+      community.general.parted:
+        device: /dev/sdb
+        number: 1
+        flags: [ lvm ]
+        state: present
+
+    - name: Create VG
+      lvg:
+        vg: vg-opt
+        pvs: /dev/sdb1
+
+    - name: Create logical volume
+      lvol:
+        vg: vg-opt
+        lv: lv-opt
+        size: +100%FREE
+        resizefs: true
+
+    - name: Format LV xfs
+      filesystem:
+        fstype: xfs
+        dev: /dev/vg-opt/lv-opt
+
+    - name: Ensure filesystem is mounted at boot
+      mount:
+        path: /opt
+        fstype: xfs
+        boot: true
+        src: /dev/vg-opt/lv-opt
+        state: present

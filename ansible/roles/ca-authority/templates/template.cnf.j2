@@ -1,0 +1,31 @@
+[ req ]
+default_bits = 2048
+distinguished_name = req_distinguished_name
+req_extensions = req_ext
+prompt = no
+default_md = sha256
+
+[ req_distinguished_name ]
+C = {{ country_code }}
+ST = {{ state }}
+L = {{ location }}
+O = {{ organisation }}
+OU = {{ organisation_unit }}
+CN = *.apps.{{ domain_name }}
+emailAddress = {{ email }}
+
+[req_ext]
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = api.{{ domain_name }}
+DNS.2 = test-arc-crt45-bastion.ibm.com
+DNS.3 = *.apps.test-arc-crt45.ibm.com
+
+
+zone "{{ domain_name }}" IN {
+	type master;
+	file "/var/named/db.{{ domain_name }}.zone";
+	allow-query { any; };
+	allow-transfer { none; };
+};

@@ -1,0 +1,6 @@
+zone "{{ domain_name }}" IN {
+	type master;
+	file "/var/named/db.{{ domain_name }}.zone";
+	allow-query { any; };
+	allow-transfer { none; };
+};

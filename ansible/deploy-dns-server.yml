@@ -1,0 +1,11 @@
+---
+- name: Install and configure DNS
+  hosts: localhost
+  become: true
+  vars_files: 
+    - vars/config.yml
+
+  roles:
+  - install-configure-dns
+
+

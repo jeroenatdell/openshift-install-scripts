@@ -1,0 +1,13 @@
+authorityKeyIdentifier=keyid,issuer
+keyUsage=digitalSignature
+extendedKeyUsage=serverAuth
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = {{ item.name }}.{{ domain_name }}
+DNS.2 = {{ item.name }}
+DNS.3 = {{ item.ip }}
+{% if item.name == "api" %}
+DNS.4 = *.apps.{{ domain_name }}
+{% endif %}
+

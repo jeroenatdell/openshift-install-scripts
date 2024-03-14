@@ -1,0 +1,10 @@
+---
+- name: Create CA Authority
+  hosts: localhost
+  become: false
+  vars_files: 
+    - vars/config.yml
+
+  roles:
+  - ca-certs
+

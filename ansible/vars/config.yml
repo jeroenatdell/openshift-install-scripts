@@ -1,0 +1,64 @@
+---
+- ipv4subnet: "172.19.8.0"
+- ipv4maskslash: "/24"
+- ipv4reverse: "8.19.172"
+- ipv4netmask: "255.255.255.0"
+- ipv4gateway: "172.19.8.1"
+- ipv4nameserver: "172.19.8.254"
+- top_level_domain: "lab"
+- cluster_name: "ocp"
+- domain_name: "{{ cluster_name }}.{{ top_level_domain }}"
+- machine_network_cidr: "{{ ipv4subnet }}{{ ipv4maskslash }}"
+- ip_forwarders:
+  - 10.215.62.5
+  - 10.215.62.6
+- time_zone: Europe/London
+- infrastructure_addresses:
+  - name: "utility"
+    ip: "172.19.8.254"
+  - name: "registry"
+    ip: "172.19.8.254"
+  - name: "api"
+    ip: "172.19.8.10"
+- wildcard_domain:
+  - name: "*.apps"
+    ip: 172.19.8.20
+- openshift_nodes:
+  - name: master-01
+    role: master
+    os: rhcos
+    interface: ens192
+    macAddress: 00:50:56:8f:91:29
+    rootDeviceName: /dev/sda
+    ip: 172.19.8.11
+  - name: master-02
+    role: master
+    os: rhcos
+    interface: ens192
+    macAddress: 00:50:56:8f:d9:80
+    rootDeviceName: /dev/sda
+    ip: 172.19.8.12
+  - name: master-03
+    role: master
+    os: rhcos
+    interface: ens192
+    macAddress: 00:50:56:8f:8c:89
+    rootDeviceName: /dev/sda
+    ip: 172.19.8.13
+  - name: worker-01
+    role: worker
+    os: rhcos
+    interface: ens192
+    macAddress: 00:50:56:8f:61:8a
+    rootDeviceName: /dev/sda
+    ip: 172.19.8.14
+  - name: worker-02
+    role: worker
+    os: rhcos
+    interface: ens192
+    macAddress: 00:50:56:8f:a8:89
+    rootDeviceName: /dev/sda
+    ip: 172.19.8.15
+
+  
+ 

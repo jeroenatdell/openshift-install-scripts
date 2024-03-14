@@ -1,0 +1,18 @@
+---
+# tasks file for ca-certs
+- name: Create folders for CA
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - /home/admin/ca/certs
+    - /home/admin/ca/reqs
+    - /home/admin/ca/keys
+    - /home/admin/ca/cnf
+
+- name: Create configs for ca-certs
+  template:
+    src: template.cnf.j2
+    dest: /home/admin/ca/cnf/{{ item.name }}.{{ domain_name}}.cnf
+  with_items:
+    - "{{ infrastructure_addresses }}"

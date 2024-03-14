@@ -1,0 +1,6 @@
+zone "{{ ipv4reverse }}.in-addr.arpa" {
+	type master;
+	file "/var/named/db.{{ domain_name }}.rzone";
+	allow-query { any; };
+	allow-transfer { none; };
+};

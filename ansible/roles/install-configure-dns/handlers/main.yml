@@ -1,0 +1,6 @@
+---
+# handlers file for install-configure-dns
+- name: Restart named
+  service:
+    name: named
+    state: restarted

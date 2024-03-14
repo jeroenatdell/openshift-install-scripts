@@ -1,0 +1,17 @@
+$ORIGIN {{ ipv4reverse }}.in-addr.arpa.
+$TTL 1D
+@	IN SOA	{{ ansible_hostname }}.{{ domain_name }}. root (
+					2021120801	; serial
+					1D	; refresh
+					1H	; retry
+					1W	; expire
+					3H )	; minimum
+		IN 	NS	{{ ansible_hostname }}.{{ domain_name }}.
+{% for records in infrastructure_addresses %}
+{% if records.name != "*.apps" %}
+{{ records.ip[(ipv4reverse | length)+1:] }}		IN PTR	{{ records.name }}.{{ domain_name }}
+{% endif %}
+{% endfor %}
+{% for nodes in openshift_nodes %}
+{{ nodes.ip[(ipv4reverse | length)+1:] }}		IN PTR	{{ nodes.name }}.{{ domain_name }}
+{% endfor %}
